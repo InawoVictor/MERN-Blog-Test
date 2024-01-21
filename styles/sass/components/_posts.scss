@@ -1,0 +1,15 @@
+.posts{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px;
+    width: 60%;
+    // background-color: green;
+
+    @media screen and (max-width: 1200px) {    
+        width: 100%;
+        margin:  20px 0;  
+        // grid-column-gap: 2rem;   
+    }
+}

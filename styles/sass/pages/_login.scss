@@ -1,0 +1,48 @@
+.login {
+    height: calc(100vh - 50px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.5),
+        rgba(255, 255, 255, 0.5)
+      ),
+      url("https://images.pexels.com/photos/796603/pexels-photo-796603.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+    background-size: cover;
+
+    &--title {
+        font-size: 50px;
+    }
+
+    &--form {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    &--input {
+        padding: 10px;
+        background-color: white;
+        border: none;
+        border-radius: 10px;
+        &:focus {
+            outline: none;
+        }
+      }
+      
+      
+    &--btn {
+        margin-top: 20px;
+        cursor: pointer;
+        background-color: lightcoral;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        text-align: center;
+        &:disabled{
+            cursor: not-allowed;
+        }
+    }
+}

@@ -1,0 +1,10 @@
+.postDetails{
+    display: flex;
+    padding: 2rem 5rem;
+    justify-content: space-between;
+
+    @media screen and (max-width: 1200px) {    
+        flex-direction: column; 
+        padding: 2rem 2rem  2rem 1rem;     
+    }
+}
