@@ -1,6 +1,24 @@
-import React from 'react'
+import axios from 'axios'
+import Link from 'next/link'
+import React, { useEffect, useState } from 'react'
 
 const SideBar = () => {
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+       async function getCategories(){
+        try {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
+            setCategories(res.data);
+        } catch (error) {
+            console.log(error);            
+        }
+       }
+
+       getCategories()
+    }, [])
+
+
   return (
         <div className="sidebar">
         <div className="sidebar--item">
@@ -24,15 +42,14 @@ const SideBar = () => {
                 </Link>
             </li>
             })} */}
-            <li className="sidebar--list-item">
-                Music
-            </li>
-            <li className="sidebar--list-item">
-               Art
-            </li>
-            <li className="sidebar--list-item">
-                Nutrition
-            </li>
+            {categories.map((c, index) =>{
+            return (<li className="sidebar--list-item" key={index}>
+                    <Link className="link" href={`/?category=${c?.name}`}>
+                    {c?.name}
+                    </Link>
+                </li>
+                )
+          })}
             </ul>
         </div>
         <div className="sidebar--item">

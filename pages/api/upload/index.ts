@@ -1,5 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { initializeApp } from "firebase/app";
 import multer from 'multer';
+import {firebaseConfig} from "@/config/firebase.config"
+import { getStorage, ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -10,13 +13,17 @@ const storage = multer.diskStorage({
     },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage: multer.memoryStorage()});
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+    initializeApp(firebaseConfig)
+    const storage = getStorage()
+
     const { method } = req
 
     if(method === "POST") {
         try {
+            // const dateTime = getCurrentDateTime()
             await new Promise((resolve, reject) => {
                 upload.single('file')(req, res, (error) => {
                     if (error) {

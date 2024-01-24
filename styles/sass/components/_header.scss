@@ -1,9 +1,9 @@
 .header{
-    margin-top: 6rem;
+    // margin-top: 6rem;
     background-position: center;
     background: linear-gradient(to right, rgba(0,0,0, .5), rgba(0,0,0, .5)), url("https://images.pexels.com/photos/64769/pexels-photo-64769.jpeg");
     background-size: cover;
-    height: 80vh;
+    height: calc(100vh - 6rem);
 
     &--title{
         display: flex;
@@ -18,11 +18,17 @@
         &-sm{
             font-size: 8rem;
             font-weight: 400;
+            @media screen and (max-width: 530px){
+                font-size: 5rem;
+            }
         }
 
         &-lg{
             font-size: 10rem;
             font-weight: 700;
+            @media screen and (max-width: 530px){
+                font-size: 7rem;
+            }
         }
     }
 

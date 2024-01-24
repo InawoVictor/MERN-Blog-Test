@@ -1,5 +1,5 @@
-import { useDeletePostMutation, useGetPostQuery, useUpdatePostMutation } from '@/redux/posts/posts'
 import axios from 'axios'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
@@ -11,8 +11,6 @@ const SinglePost = ({post}) => {
     const [updateMode, setUpdateMode] = useState(false)
 
     const currentUser = useSelector(state => state.auth.user)
-    const [updatePost] = useUpdatePostMutation();
-    const [deletePost] = useDeletePostMutation();
     const router = useRouter()
 
     useEffect(() => {
@@ -21,14 +19,7 @@ const SinglePost = ({post}) => {
     }, [])
 
     const handleUpdate = () => {
-        // updatePost(
-        //     {
-        //         username: currentUser.username,
-        //         id: post._id,
-        //         title,
-        //         description
-        //     }
-        // )        
+
         try {
             axios.put(`${process.env.NEXT_PUBLIC_API_URL}/posts/${post._id}`, {
                 username: currentUser.username,
@@ -44,12 +35,6 @@ const SinglePost = ({post}) => {
     }
 
     const handleDelete = async () => {
-        // deletePost(
-        //     {
-        //         username: currentUser.username,
-        //         id: post._id,
-        //     }
-        // )
         
         try {
             await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/posts/${post._id}`,
@@ -67,11 +52,14 @@ const SinglePost = ({post}) => {
   return (
     <div className='singlePost'>
         <div className="singlePost--wrapper">
-            <img
+            {post?.photo && (
+                <img
                 className="singlePost--img"
-                src={"https://i.pinimg.com/originals/39/11/6c/39116c247669762f4ce72be4ce2b862e.jpg"}
+                src={post.photo}
                 alt=""
-            />
+                />
+
+            )}
             {updateMode ? <input type="text" autoFocus={true} 
                 onChange={(e) => setTitle(e.target.value)} placeholder='Edit Title'
                 value={title} className="singlePost--title-input"/> :(
@@ -90,7 +78,9 @@ const SinglePost = ({post}) => {
                 <span>
                     Author:
                     <b className="singlePost--author">
-                    {post.username}
+                    <Link className="link" href={`/?user=${post.username}`}>
+                        {post.username}
+                    </Link>
                     </b>
                 </span>
                 <span>{new Date(post.createdAt).toDateString()}</span>

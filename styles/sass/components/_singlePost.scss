@@ -68,6 +68,10 @@
         margin-left: 5px;
         text-transform: capitalize;
         letter-spacing: 1px;
+
+        a{
+            color: #be9656;
+        }
     }
 
     &--description {
@@ -93,6 +97,13 @@
                 outline: none;
             }
         }
+        &-truncate {
+            // white-space: nowrap;       
+            // overflow: hidden;          
+            // text-overflow: ellipsis;
+            // max-width: 50px;          
+        }
+          
     }
     &--btn{
         border: none;
