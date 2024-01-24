@@ -1,20 +1,68 @@
 import { SideBar } from '@/components';
-import React, { useState } from 'react'
+import { logOut, setCredentials } from '@/redux/auth/authSlice';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const Profile = () => {
-    const handleDelete = () => {
-        console.log("delete");
-        
-    }
-    const handleSubmit = () => {
-        console.log("delete");
-    }
+    const router = useRouter()
 
-    const [currentUser, setCurrentUser] = useState({})
+    const currentUser = useSelector(state => state.auth.user)
+    const dispatch = useDispatch()
+
     const [email, setEmail] = useState("")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [file, setFile] = useState("")
+
+    useEffect(() => {
+        setEmail(currentUser.email)
+        setUsername(currentUser.username)
+        setPassword(currentUser.password)
+    }, [])
+
+    const handleDelete = async () => {
+        try {
+            const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/users/${currentUser._id}`, {
+                data: {
+                    userId: currentUser._id,
+                    username: currentUser.username
+                }
+            }
+            )
+            toast.success(`user has been deleted`)
+            router.push("/")
+            dispatch(logOut())
+        } catch (error) {
+            console.log(error)
+            toast.error(`${error.response.data}`)
+        }
+    }
+
+    const updateUser = async (e) => {
+        e.preventDefault()
+        const updatedUser = {
+            userId: currentUser._id,
+            username,
+            email,
+        }     
+        
+        try {
+            const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/users/${currentUser._id}`,
+                updatedUser
+            )
+            dispatch(setCredentials({ user: res.data}))
+            router.push("/");
+            toast.success(`user has been updated`)
+          } catch (error) {
+            console.log(error)
+            toast.error(`${error.response.data}`)
+          }
+        
+    }
+
 
     return (
         <div className="profile">
@@ -23,7 +71,7 @@ const Profile = () => {
             <span className="profile--title-update">Update Your Account</span>
             <span onClick={handleDelete} className="profile--title-delete">Delete Account</span>
             </div>
-            <form className="profile--form" onSubmit={handleSubmit}>
+            <form className="profile--form" onSubmit={updateUser}>
             <label>Profile Picture</label>
             <div className="profile--PP">
                 <img
@@ -42,11 +90,11 @@ const Profile = () => {
                 />
             </div>
             <label>Username</label>
-            <input type="text" placeholder={currentUser.username} name="name"
+            <input type="text" placeholder={currentUser?.username} name="name"
                 onChange={e => setUsername(e.target.value)}
             />
             <label>Email</label>
-            <input type="email" placeholder={currentUser.email} name="email"
+            <input type="email" placeholder={currentUser?.email} name="email"
                 onChange={e => setEmail(e.target.value)}
             />
             <label>Password</label>

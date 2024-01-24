@@ -1,12 +1,40 @@
+import axios from 'axios'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const PostCreation = () => {
+    const currentUser = useSelector(state => state.auth.user)
+    const router = useRouter()
 
     const [file, setFile] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
-    const handleSubmit = () => {
-        console.log('submit')
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const newPost ={
+            title: title,
+            description: description,
+            username: currentUser.username
+        }
+
+        try {
+            if(title === ""){
+                toast.error("Please enter a title")
+            } else if (description === "") {
+                toast.error("Please add your story")
+            } else {
+                const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, newPost)
+                router.push("/")
+                toast.success("Your post has been created");
+            }
+            
+        } catch (error) {
+            console.log(error);
+            toast.error("Opps! 😬, Something went wrong")
+        }
     }
 
     return (
@@ -29,6 +57,7 @@ const PostCreation = () => {
                             placeholder="Title"
                             type="text"
                             autoFocus={true}
+                            // required
                             onChange={e => setTitle(e.target.value)}
                         />
                     </div>

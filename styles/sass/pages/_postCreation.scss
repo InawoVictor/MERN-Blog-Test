@@ -39,14 +39,16 @@
         border: none;
         padding: 20px;
         width: 70vw;
+        margin-top: 1rem;
 
         &::placeholder {
-            color: rgb(189, 185, 185);
+            color: #bdb9b9;
             font-weight: 400;
         }
 
-        ::focus {
+        &:focus {
             outline-style: none;
+            border-bottom: 1px solid #bdb9b9;
         }
     }
 

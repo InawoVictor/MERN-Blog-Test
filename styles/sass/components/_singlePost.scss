@@ -22,13 +22,14 @@
         font-size: 28px;
         font-family: "Lora", sans-serif;
 
-        &--input{
+        &-input{
             text-align: center;
-            margin: 10px;
-            font-size: 28px;
+            margin: 1rem;
+            margin-top: 2rem;
+            font-size: 2.8rem;
             font-family: "Lora", sans-serif;
             border: none;
-            border-bottom: 1px solid #000;
+            border-bottom: 1px solid #080303;
 
             &:focus{
                 outline: none;
@@ -39,6 +40,7 @@
     &--edit {
         float: right;
         font-size: 16px;
+        margin-top: 1rem;
     }
 
     &--icon {
@@ -64,6 +66,8 @@
 
     &--author{
         margin-left: 5px;
+        text-transform: capitalize;
+        letter-spacing: 1px;
     }
 
     &--description {
@@ -77,11 +81,13 @@
             font-weight: 600;
         }
 
-        &--input{
+        &-input{
             color: #666;
             font-size: 18px;
             line-height: 25px;
-            border: none;
+            border: solid .5px #666;
+            padding: 1rem;
+            border-radius: .5rem;
 
             &:focus{
                 outline: none;
