@@ -113,7 +113,7 @@ const Profile: React.FC<ProfileProps> = () => {
                 <div className="profile--PP">
                 <img
                     src={currentUser?.profilePic}
-                    alt=""
+                    alt="Profile Image"
                 />
                 <label htmlFor="fileInput">
                     <i className="profile--PP-icon far fa-user-circle"></i>{" "}

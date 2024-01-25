@@ -14,7 +14,7 @@ interface PostProps {
 const Post: React.FC<PostProps> = ({ post }) => {
   return (
     <div className='post'>
-      <img src={post.photo} alt="" className='post--img' />
+      <img src={post.photo} alt="Post Image" className='post--img' />
       <div className="post--info">
         <div className="post--info-categories">
           <span className="post--info-category">
