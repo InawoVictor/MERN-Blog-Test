@@ -27,7 +27,7 @@ export default function Home({ posts, errorMessage }: HomeProps) {
         <Layout>
           <div className="home">
             {errorMessage ? (
-              <p>{errorMessage}</p>
+              <p style={{fontSize: "2rem", color: "tomato"}}>{errorMessage}</p>
             ) : (
               <>
                 <Posts posts={posts ?? []} />
@@ -55,7 +55,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ query 
       },
     };
   } catch (error) {
-    const errorMessage = 'An error occurred while fetching posts. Please try again later.';
+    const errorMessage = 'An error occurred while fetching posts. Please refresh page.';
     
     return {
       props: {

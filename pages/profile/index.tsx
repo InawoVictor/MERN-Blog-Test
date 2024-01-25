@@ -63,27 +63,27 @@ const Profile: React.FC<ProfileProps> = () => {
         email,
         };
 
-        try {
-            if (file) {
-                // const data = new FormData();
-                // const filename = Date.now() + file.name;
-                // data.append('name', filename);
-                // data.append('file', file);
-        
-                
-        
-                try {
-                    const fileRef = ref(analytics, 'newfiles/notes');
-                    uploadBytes(fileRef, file).then((data) => {
-                    getDownloadURL(data.ref).then((url) => {
-                        console.log('url', url)
-                        updateUser.profilePicture = url;
-                    });
-                    });
-                } catch (error) {
-                    console.log(error);
-                }
+        if (file) {
+            // const data = new FormData();
+            // const filename = Date.now() + file.name;
+            // data.append('name', filename);
+            // data.append('file', file);
+    
+            
+    
+            try {
+                const fileRef = ref(analytics, 'newfiles/notes');
+                uploadBytes(fileRef, file).then((data) => {
+                getDownloadURL(data.ref).then((url) => {
+                    console.log('url', url)
+                    updateUser.profilePicture = url;
+                });
+                });
+            } catch (error) {
+                console.log(error);
             }
+        }
+        try {
         const res = await axios.put(
             `${process.env.NEXT_PUBLIC_API_URL}/users/${currentUser._id}`,
             updatedUser
@@ -112,7 +112,7 @@ const Profile: React.FC<ProfileProps> = () => {
                 <label>Profile Picture</label>
                 <div className="profile--PP">
                 <img
-                    src={currentUser.profilePic}
+                    src={currentUser?.profilePic}
                     alt=""
                 />
                 <label htmlFor="fileInput">

@@ -18,7 +18,8 @@ const PostCreation: React.FC<PostCreationProps> = () => {
     const [file, setFile] = useState<File | null>(null);
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
-    const [url, setUrl] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
+    const [photoUrl, setPhotoUrl] = useState("")
 
     useEffect(() => {
         if (!token) {
@@ -28,12 +29,35 @@ const PostCreation: React.FC<PostCreationProps> = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const newPost = {
-        title: title,
-        description: description,
-        username: currentUser.username,
-        };
+        
 
+        if (file) {
+            // const data = new FormData();
+            // const filename = Date.now() + file.name;
+            // data.append('name', filename);
+            // data.append('file', file);
+    
+            
+    
+            try {
+                const fileRef = ref(analytics, 'newfiles/notes');
+                uploadBytes(fileRef, file).then((data) => {
+                getDownloadURL(data.ref).then((url) => {
+                    console.log('url', url)
+                    setPhotoUrl(url)
+                });
+                });
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        const newPost = {
+            title: title,
+            description: description,
+            username: currentUser.username,
+            photo: photoUrl
+        };
 
         try {
         if (title === '') {
@@ -41,35 +65,20 @@ const PostCreation: React.FC<PostCreationProps> = () => {
         } else if (description === '') {
             toast.error('Please add your story');
         } else {
-            if (file) {
-                // const data = new FormData();
-                // const filename = Date.now() + file.name;
-                // data.append('name', filename);
-                // data.append('file', file);
-        
-                
-        
-                try {
-                    const fileRef = ref(analytics, 'newfiles/notes');
-                    uploadBytes(fileRef, file).then((data) => {
-                    getDownloadURL(data.ref).then((url) => {
-                        console.log('url', url)
-                        newPost.photo = url;
-                    });
-                    });
-                } catch (error) {
-                    console.log(error);
-                }
-            }
+            setLoading(true)
             const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, newPost);
+            console.log(res.data)
             router.push('/');
             toast.success('Your post has been created');
+            setLoading(false)
         }
         } catch (error) {
         console.log(error);
         toast.error('Opps! 😬, Something went wrong');
+        setLoading(false)
         }
     };
+
 
     return (
         <>
@@ -97,6 +106,7 @@ const PostCreation: React.FC<PostCreationProps> = () => {
                 className='creation--input'
                 placeholder='Title'
                 type='text'
+                required
                 autoFocus={true}
                 onChange={(e) => setTitle(e.target.value)}
                 />
@@ -109,7 +119,7 @@ const PostCreation: React.FC<PostCreationProps> = () => {
                 onChange={(e) => setDescription(e.target.value)}
                 />
             </div>
-            <button className='creation--submit' type='submit'>
+            <button className='creation--submit' type='submit' disabled={loading}>
                 Publish
             </button>
             </form>

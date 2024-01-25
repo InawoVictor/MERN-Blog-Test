@@ -5,10 +5,11 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
-const SinglePost = ({post}) => {
-    const [title, setTitle] = useState("")
-    const [description, setDescription] = useState("")
-    const [updateMode, setUpdateMode] = useState(false)
+const SinglePost: React.FC = ({post}) => {
+    const [title, setTitle] = useState<string>("")
+    const [description, setDescription] = useState<string>("")
+    const [updateMode, setUpdateMode] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
 
     const currentUser = useSelector(state => state.auth.user)
     const router = useRouter()
@@ -21,6 +22,7 @@ const SinglePost = ({post}) => {
     const handleUpdate = () => {
 
         try {
+            setLoading(true)
             axios.put(`${process.env.NEXT_PUBLIC_API_URL}/posts/${post._id}`, {
                 username: currentUser.username,
                 id: post._id,
@@ -29,21 +31,28 @@ const SinglePost = ({post}) => {
             setUpdateMode(false)
             router.push("/")
             toast.success("Post has been updated 😎")
+            setLoading(false)
         } catch (error) {
             console.log(error)
+            toast.error(error?.response.data)
+            setLoading(false)
         }
     }
 
     const handleDelete = async () => {
         
         try {
+            setLoading(true)
             await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/posts/${post._id}`,
             {data:{username: currentUser.username}})
             setUpdateMode(false)
             router.push("/")
             toast.success("Post has been deleted 😞")
+            setLoading(false)
         } catch (error) {
             console.log(error)
+            toast.error(error?.response.data)
+            setLoading(false)
         }
     }
 
@@ -97,7 +106,7 @@ const SinglePost = ({post}) => {
                     </p>
                 )
             }
-            {updateMode && <button onClick={handleUpdate} className="singlePost--btn">Update</button>}
+            {updateMode && <button onClick={handleUpdate} disabled={loading} className="singlePost--btn">Update</button>}
         </div>
     </div>
   )
