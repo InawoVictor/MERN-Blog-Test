@@ -56,7 +56,6 @@ const PostCreation: React.FC<PostCreationProps> = () => {
             title: title,
             description: description,
             username: currentUser.username,
-            photo: photoUrl
         };
 
         try {
@@ -66,7 +65,7 @@ const PostCreation: React.FC<PostCreationProps> = () => {
             toast.error('Please add your story');
         } else {
             setLoading(true)
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, newPost);
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/posts`, { photo: photoUrl,...newPost});
             console.log(res.data)
             router.push('/');
             toast.success('Your post has been created');

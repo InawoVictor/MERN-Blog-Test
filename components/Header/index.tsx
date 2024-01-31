@@ -1,7 +1,6 @@
 import React from 'react'
 
-const Header
- = () => {
+const Header = () => {
   return (
     <div className='header'>
         <div className="header--title">

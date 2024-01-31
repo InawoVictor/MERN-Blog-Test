@@ -41,8 +41,8 @@ const SideBar: React.FC = () => {
             <ul className="sidebar--list">
             {categories.map((c, index) => (
                 <li className="sidebar--list-item" key={index}>
-                <Link href={`/?category=${c?.name}`}>
-                    <a className="link">{c?.name}</a>
+                <Link className='link' href={`/?category=${c?.name}`}>
+                    {c?.name}
                 </Link>
                 </li>
             ))}
