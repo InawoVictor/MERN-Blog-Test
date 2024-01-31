@@ -10,8 +10,8 @@ import { analytics } from '@/config/firebase.config';
 interface PostCreationProps {}
 
 const PostCreation: React.FC<PostCreationProps> = () => {
-    const currentUser: any = useSelector((state) => state.auth.user);
-    const token: string | null = useSelector((state) => state.auth.token);
+    const currentUser: any = useSelector((state:any) => state.auth.user);
+    const token: string | null = useSelector((state:any) => state.auth.token);
 
     const router = useRouter();
 

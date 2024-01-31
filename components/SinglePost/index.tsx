@@ -5,13 +5,26 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
-const SinglePost: React.FC = ({post}) => {
+interface Post {
+    title: string
+    description: string
+    username: string
+    photo: string
+    _id: string
+    createdAt: string
+}
+
+interface SinglePostProps {
+    post: Post; 
+}
+
+const SinglePost: React.FC<SinglePostProps>  = ({post}) => {
     const [title, setTitle] = useState<string>("")
     const [description, setDescription] = useState<string>("")
     const [updateMode, setUpdateMode] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
 
-    const currentUser = useSelector(state => state.auth.user)
+    const currentUser = useSelector((state:any) => state.auth.user)
     const router = useRouter()
 
     useEffect(() => {

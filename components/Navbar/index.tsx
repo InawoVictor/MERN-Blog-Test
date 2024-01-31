@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 const Navbar = () => {
-    const currentUser = useSelector(state => state.auth.user)
+    const currentUser = useSelector((state:any) => state.auth.user)
     const dispatch = useDispatch()
     const router = useRouter()
 
