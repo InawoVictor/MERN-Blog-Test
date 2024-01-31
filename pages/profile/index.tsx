@@ -48,7 +48,7 @@ const Profile: React.FC<ProfileProps> = () => {
         toast.success(`user has been deleted`);
         router.push("/");
         dispatch(logOut());
-        } catch (error) {
+        } catch (error: any) {
         console.log(error);
         toast.error(`${error.response.data}`);
         }
@@ -61,6 +61,7 @@ const Profile: React.FC<ProfileProps> = () => {
         userId: currentUser._id,
         username,
         email,
+        profilePicture: ""
         };
 
         if (file) {
@@ -76,7 +77,7 @@ const Profile: React.FC<ProfileProps> = () => {
                 uploadBytes(fileRef, file).then((data) => {
                 getDownloadURL(data.ref).then((url) => {
                     console.log('url', url)
-                    updateUser.profilePicture = url;
+                    updatedUser.profilePicture = url;
                 });
                 });
             } catch (error) {
@@ -91,7 +92,7 @@ const Profile: React.FC<ProfileProps> = () => {
         dispatch(setCredentials({ user: res.data }));
         router.push("/login");
         toast.success(`user has been updated`);
-        } catch (error) {
+        } catch (error: any) {
         console.log(error);
         toast.error(`${error.response.data}`);
         }

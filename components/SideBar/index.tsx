@@ -1,25 +1,29 @@
-import axios from 'axios'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import axios from 'axios';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 
-const SideBar = () => {
-    const [categories, setCategories] = useState([])
+interface Category {
+    name: string;
+  // Add other properties based on the actual structure of your category
+}
+
+const SideBar: React.FC = () => {
+    const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
-       async function getCategories(){
+        async function getCategories() {
         try {
             const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
             setCategories(res.data);
         } catch (error) {
-            console.log(error);            
+            console.error(error);
         }
-       }
+        }
 
-       getCategories()
-    }, [])
+        getCategories();
+    }, []);
 
-
-  return (
+    return (
         <div className="sidebar">
         <div className="sidebar--item">
             <span className="sidebar--title">ABOUT ME</span>
@@ -35,34 +39,26 @@ const SideBar = () => {
         <div className="sidebar--item">
             <span className="sidebar--title">CATEGORIES</span>
             <ul className="sidebar--list">
-            {/* {cats.map((c) =>{
-                return <li className="sidebar--list-item">
-                <Link className="link" to={`/?cat=${c.name}`}>
-                {c.name}
+            {categories.map((c, index) => (
+                <li className="sidebar--list-item" key={index}>
+                <Link href={`/?category=${c?.name}`}>
+                    <a className="link">{c?.name}</a>
                 </Link>
-            </li>
-            })} */}
-            {categories.map((c, index) =>{
-            return (<li className="sidebar--list-item" key={index}>
-                    <Link className="link" href={`/?category=${c?.name}`}>
-                    {c?.name}
-                    </Link>
                 </li>
-                )
-          })}
+            ))}
             </ul>
         </div>
         <div className="sidebar--item">
             <span className="sidebar--title">FOLLOW US</span>
             <div className="sidebar--social">
-                <i className="sidebar--icon fab fa-facebook-square"></i>
-                <i className="sidebar--icon fab fa-instagram-square"></i>
-                <i className="sidebar--icon fab fa-pinterest-square"></i>
-                <i className="sidebar--icon fab fa-twitter-square"></i>
+            <i className="sidebar--icon fab fa-facebook-square"></i>
+            <i className="sidebar--icon fab fa-instagram-square"></i>
+            <i className="sidebar--icon fab fa-pinterest-square"></i>
+            <i className="sidebar--icon fab fa-twitter-square"></i>
             </div>
         </div>
         </div>
-  )
-}
+    );
+};
 
-export default SideBar
+export default SideBar;
