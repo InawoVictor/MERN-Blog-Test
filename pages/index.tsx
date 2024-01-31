@@ -12,6 +12,10 @@ interface HomeProps {
 
 export default function Home({ posts, errorMessage }: HomeProps) {
 
+  if(!process.env.NEXT_PUBLIC_API_URL){
+    return null
+  }
+
   return (
     <>
       <Head>
