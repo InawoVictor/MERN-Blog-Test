@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
@@ -14,7 +15,7 @@ interface PostProps {
 const Post: React.FC<PostProps> = ({ post }) => {
   return (
     <div className='post'>
-      <img src={post.photo} alt="Post Image" className='post--img' />
+      <Image src={post.photo} alt="Post Image" className='post--img' />
       <div className="post--info">
         <div className="post--info-categories">
           <span className="post--info-category">

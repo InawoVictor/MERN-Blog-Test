@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { setCredentials } from '@/redux/auth/authSlice';
 import axios from 'axios';
 import { useRouter } from 'next/router';

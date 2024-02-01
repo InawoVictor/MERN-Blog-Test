@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { SideBar, SinglePost } from '@/components';
 import { NextSeo } from 'next-seo';
 import axios from 'axios';

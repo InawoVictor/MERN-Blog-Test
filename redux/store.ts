@@ -1,5 +1,5 @@
 import { combineReducers } from "@reduxjs/toolkit";
- 
+
 import {
     persistStore,
     persistReducer,
@@ -12,13 +12,13 @@ import {
   } from 'redux-persist'
   import storage from 'redux-persist/lib/storage'
 
- 
+
 
 import { configureStore } from '@reduxjs/toolkit'
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from '@reduxjs/toolkit/query'
-import { postApi } from "./posts/posts";
-import { authApi } from "./auth/authApi";
+// import { postApi } from "./posts/posts";
+// import { authApi } from "./auth/authApi";
 import authSlice from "./auth/authSlice";
 
 const persistConfig = {

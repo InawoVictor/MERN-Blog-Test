@@ -21,7 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         if (!validated) {
             return res.status(400).json('Wrong credentials');
         }
-        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET)
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET as string)
 
         const { password, ...others } = user._doc;
         return res

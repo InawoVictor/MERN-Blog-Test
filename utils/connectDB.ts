@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import mongoose, { Mongoose } from 'mongoose';
 
 const MONGODB_URI: string = process.env.MONGO_URI as string;

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -75,7 +76,7 @@ const SinglePost: React.FC<SinglePostProps>  = ({post}) => {
     <div className='singlePost'>
         <div className="singlePost--wrapper">
             {post?.photo && (
-                <img
+                <Image
                 className="singlePost--img"
                 src={post.photo}
                 alt=""

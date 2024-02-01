@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
@@ -27,7 +28,7 @@ const SideBar: React.FC = () => {
         <div className="sidebar">
         <div className="sidebar--item">
             <span className="sidebar--title">ABOUT ME</span>
-            <img
+            <Image
             src="https://images.pexels.com/photos/64769/pexels-photo-64769.jpeg"
             alt=""
             />

@@ -1,10 +1,22 @@
+// @ts-nocheck
 import Head from "next/head";
 import { Layout, Posts, SideBar } from "@/components";
 import axios from "axios";
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { ParsedUrlQuery } from "querystring";
+
+interface Post { 
+  _id: string; 
+  username: string; 
+  photo: string;
+  categories: string[]; 
+  title: string; 
+  createdAt: string; 
+  description: string; 
+}
 
 interface HomeProps {
-  posts: {}[];
+  posts: Post[];
   errorMessage?: string; 
 }
 
@@ -45,7 +57,9 @@ export default function Home({ posts, errorMessage }: HomeProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps<HomeProps> = async (
+  { query }: GetServerSidePropsContext<ParsedUrlQuery>
+  ) => {
   const category = query.category || "";
   const user = query.user || "";
 

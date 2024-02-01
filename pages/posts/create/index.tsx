@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { analytics } from '@/config/firebase.config';
+import Image from 'next/image';
 
 interface PostCreationProps {}
 
@@ -84,7 +85,7 @@ const PostCreation: React.FC<PostCreationProps> = () => {
         <Navbar />
         <div className='creation'>
             {file && (
-            <img
+            <Image
                 className='creation--img'
                 src={window.URL.createObjectURL(file) || ''}
                 alt=''

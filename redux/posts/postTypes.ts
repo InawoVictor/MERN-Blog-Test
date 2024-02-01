@@ -1,11 +1,10 @@
 export interface Post{
-    title: String,
-    _id: String;
-    description: String;
-    username: String;
+    title: string,
+    _id: string;
+    description: string;
+    username: string;
     categories: [];
-    createdAt:  String
+    createdAt:  string;
+    photo: string;
 }
-
-
 

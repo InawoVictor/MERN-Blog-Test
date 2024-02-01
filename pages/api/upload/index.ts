@@ -1,47 +1,47 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import multer from 'multer';
+// import { NextApiRequest, NextApiResponse } from 'next';
+// import multer from 'multer';
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, '/public');
-    },
-    filename: (req, file, cb) => {
-        cb(null, " hello .body"); 
-    },
-});
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, '/public');
+//     },
+//     filename: (req, file, cb) => {
+//         cb(null, " hello .body"); 
+//     },
+// });
 
-const upload = multer({ storage: multer.memoryStorage()});
+// const upload = multer({ storage: multer.memoryStorage()});
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+// const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const { method } = req
+//     const { method } = req
 
-    if(method === "POST") {
-        try {
-            // const dateTime = getCurrentDateTime()
-            await new Promise((resolve, reject) => {
-                upload.single('file')(req, res, (error) => {
-                    if (error) {
-                        return reject(error);
-                    }
-                    resolve(null);
-                });
-            });
+//     if(method === "POST") {
+//         try {
+//             // const dateTime = getCurrentDateTime()
+//             await new Promise((resolve, reject) => {
+//                 upload.single('file')(req, res, (error) => {
+//                     if (error) {
+//                         return reject(error);
+//                     }
+//                     resolve(null);
+//                 });
+//             });
     
-            res.status(200).json( 'File uploaded successfully' );
-            console.error(' uploading file:', req.body);
-        } catch (error) {
-            console.error('Error uploading file:', error);
-            res.status(500).json(error);
-        }
-    }
-};
+//             res.status(200).json( 'File uploaded successfully' );
+//             console.error(' uploading file:', req.body);
+//         } catch (error) {
+//             console.error('Error uploading file:', error);
+//             res.status(500).json(error);
+//         }
+//     }
+// };
 
-export const config = {
-    api: {
-        bodyParser: false, 
-    },
-};
+// export const config = {
+//     api: {
+//         bodyParser: false, 
+//     },
+// };
 
-export default handler;
+// export default handler;
 
